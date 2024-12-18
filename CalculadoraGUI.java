@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 public class CalculadoraGUI {
     public static void main(String[] args) {
+        Calculadora calculadora = new Calculadora();
         // Crear una instancia de la calculadora y mostrar la interfaz gráfica
         JFrame frame = new JFrame("Calculadora");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -13,12 +14,12 @@ public class CalculadoraGUI {
         // Crear panel para contener los componentes
         JPanel panel = new JPanel();
         frame.add(panel);
-        placeComponents(panel);
+        placeComponents(panel, calculadora);
 
         frame.setVisible(true);
     }
 
-    private static void placeComponents(JPanel panel) {
+    private static void placeComponents(JPanel panel, Calculadora calculadora) {
         panel.setLayout(null);
 
         // Crear etiquetas y campos de texto
@@ -69,13 +70,13 @@ public class CalculadoraGUI {
         panel.add(exitButton);
 
         // Acciones de los botones
-        addButton.addActionListener(new ActionListener() {
+        addButton.addActionListener( new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     float num1 = Float.parseFloat(textField1.getText());
                     float num2 = Float.parseFloat(textField2.getText());
-                    float result = num1 + num2;
+                    float result = calculadora.suma(num1,num2);
                     resultField.setText(String.valueOf(result));
                 } catch (NumberFormatException ex) {
                     resultField.setText("Error");
@@ -89,7 +90,7 @@ public class CalculadoraGUI {
                 try {
                     float num1 = Float.parseFloat(textField1.getText());
                     float num2 = Float.parseFloat(textField2.getText());
-                    float result = num1 - num2;
+                    float result = calculadora.resta(num1,num2);
                     resultField.setText(String.valueOf(result));
                 } catch (NumberFormatException ex) {
                     resultField.setText("Error");
@@ -103,7 +104,7 @@ public class CalculadoraGUI {
                 try {
                     float num1 = Float.parseFloat(textField1.getText());
                     float num2 = Float.parseFloat(textField2.getText());
-                    float result = num1 * num2;
+                    float result = calculadora.multiplicacion(num1,num2);
                     resultField.setText(String.valueOf(result));
                 } catch (NumberFormatException ex) {
                     resultField.setText("Error");
@@ -120,7 +121,7 @@ public class CalculadoraGUI {
                     if (num2 == 0) {
                         resultField.setText("No se puede dividir entre 0");
                     } else {
-                        float result = num1 / num2;
+                        float result = calculadora.division(num1,num2);
                         resultField.setText(String.valueOf(result));
                     }
                 } catch (NumberFormatException ex) {
